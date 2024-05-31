@@ -1,26 +1,12 @@
-import { useFetch } from "./hooks/useFetch";
+import { Route, Routes } from "react-router-dom";
+import { Repo } from "./pages/repo";
+import { Repos } from "./pages/repos";
 
-type Repository = {
-  full_name: string;
-  description: string;
-};
-
-export default function App() {
-  const { data: repositories, isFetching } = useFetch<Repository[]>(
-    "users/vitorandes/repos"
-  );
-
+export function App() {
   return (
-    <ul>
-      {isFetching && <p>Carregando...</p>}
-      {repositories?.map((repo) => {
-        return (
-          <li key={repo.full_name}>
-            <strong>{repo.full_name}</strong>
-            <p>{repo.description}</p>
-          </li>
-        );
-      })}
-    </ul>
+    <Routes>
+      <Route path="/" element={<Repos />} />
+      <Route path="/repos/*" element={<Repo />} />
+    </Routes>
   );
 }
